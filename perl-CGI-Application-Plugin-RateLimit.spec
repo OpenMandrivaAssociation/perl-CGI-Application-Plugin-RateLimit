@@ -1,20 +1,22 @@
-%define module   CGI-Application-Plugin-RateLimit
-%define version    1.0
-%define release    %mkrel 2
+%define upstream_name    CGI-Application-Plugin-RateLimit
+%define upstream_version 1.0
 
-Name:       perl-%{module}
-Version:    %{version}
-Release:    %{release}
-License:    GPL or Artistic
-Group:      Development/Perl
+Name:       perl-%{upstream_name}
+Version:    %perl_convert_version %{upstream_version}
+Release:    %mkrel 3
+
 Summary:    Limits runmode call rate per user
-Url:        http://search.cpan.org/dist/%{module}
-Source:     http://www.cpan.org/modules/by-module/CGI/%{module}-%{version}.tar.gz
+License:    GPL+ or Artistic
+Group:      Development/Perl
+Url:        http://search.cpan.org/dist/%{upstream_name}
+Source0:    http://www.cpan.org/modules/by-module/CGI/%{upstream_name}-%{upstream_version}.tar.gz
+
 BuildRequires: perl(CGI::Application)
 BuildRequires: perl(Class::Accessor)
 BuildRequires: perl(Test::More)
+
 BuildArch: noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}
 
 %description
 This module provides protection against a user calling a runmode too
@@ -34,14 +36,14 @@ following schema (using MySQL-syntax, although other DBs may work as well
 with minor alterations):
 
 %prep
-%setup -q -n %{module}-%{version} 
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-make test
+%make test
 
 %install
 rm -rf %buildroot
@@ -55,4 +57,3 @@ rm -rf %buildroot
 %doc README Changes
 %{_mandir}/man3/*
 %perl_vendorlib/CGI
-
