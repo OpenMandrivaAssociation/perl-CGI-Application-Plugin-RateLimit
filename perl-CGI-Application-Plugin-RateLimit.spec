@@ -1,22 +1,22 @@
 %define upstream_name    CGI-Application-Plugin-RateLimit
 %define upstream_version 1.0
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 4
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	5
 
-Summary:    Limits runmode call rate per user
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/CGI/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Limits runmode call rate per user
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/CGI/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(CGI::Application)
-BuildRequires: perl(Class::Accessor)
-BuildRequires: perl(Test::More)
+BuildRequires:	perl-devel
+BuildRequires:	perl(CGI::Application)
+BuildRequires:	perl(Class::Accessor)
+BuildRequires:	perl(Test::More)
 
-BuildArch: noarch
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}
+BuildArch:	noarch
 
 %description
 This module provides protection against a user calling a runmode too
@@ -39,21 +39,38 @@ with minor alterations):
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 %make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc README Changes
 %{_mandir}/man3/*
-%perl_vendorlib/CGI
+%{perl_vendorlib}/CGI
+
+%changelog
+* Sat May 28 2011 Funda Wang <fwang@mandriva.org> 1.0.0-4mdv2011.0
++ Revision: 680682
+- mass rebuild
+
+* Fri Feb 12 2010 Jérôme Quelin <jquelin@mandriva.org> 1.0.0-3mdv2011.0
++ Revision: 504597
+- rebuild using %%perl_convert_version
+
+* Mon Sep 14 2009 Thierry Vignaud <tv@mandriva.org> 1.0-2mdv2010.0
++ Revision: 440537
+- rebuild
+
+* Wed Nov 26 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.0-1mdv2009.1
++ Revision: 307092
+- import perl-CGI-Application-Plugin-RateLimit
+
+
+* Wed Nov 26 2008 cpan2dist 1.0-1mdv
+- initial mdv release, generated with cpan2dist
+
