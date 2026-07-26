@@ -1,15 +1,13 @@
 %define upstream_name    CGI-Application-Plugin-RateLimit
-%define upstream_version 1.0
-
 Name:		perl-%{upstream_name}
-Version:	%perl_convert_version %{upstream_version}
-Release:	7
+Version:	1.0
+Release:	8
 
 Summary:	Limits runmode call rate per user
 License:	GPL+ or Artistic
 Group:		Development/Perl
-Url:		https://search.cpan.org/dist/%{upstream_name}
-Source0:	http://www.cpan.org/modules/by-module/CGI/%{upstream_name}-%{upstream_version}.tar.gz
+Url:		https://metacpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/CGI/%{upstream_name}-%{version}.tar.gz
 
 BuildRequires:	make
 BuildRequires:	perl-devel
@@ -37,7 +35,7 @@ following schema (using MySQL-syntax, although other DBs may work as well
 with minor alterations):
 
 %prep
-%setup -q -n %{upstream_name}-%{upstream_version}
+%setup -q -n %{upstream_name}-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor
@@ -61,9 +59,7 @@ perl Makefile.PL INSTALLDIRS=vendor
 
 * Fri Feb 12 2010 Jérôme Quelin <jquelin@mandriva.org> 1.0.0-3mdv2011.0
 + Revision: 504597
-- rebuild using %%perl_convert_version
-
-* Mon Sep 14 2009 Thierry Vignaud <tv@mandriva.org> 1.0-2mdv2010.0
+- rebuild using %1.0 Mon Sep 14 2009 Thierry Vignaud <tv@mandriva.org> 1.0-2mdv2010.0
 + Revision: 440537
 - rebuild
 
